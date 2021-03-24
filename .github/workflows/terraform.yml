@@ -37,7 +37,7 @@ jobs:
     - name: Terraform Validate
       id: validate
       run: |
-        cd $PWS/terraform
+        cd $PWD/terraform
         terraform init
         ENV=main make validate
 
