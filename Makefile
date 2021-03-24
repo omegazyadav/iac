@@ -21,7 +21,7 @@ ifeq ($(OS_X),true)
 		TERRAFORM_REQUIRED_MD5:= 885729c54928810a8aff642735fdb397
 else
 		TERRAFORM_MD5:= $(shell md5sum - < `which terraform` | tr -d ' -')
-		TERRAFORM_REQUIRED_MD5:= 3a4f298cf9c559dad92a965faa6bf128
+		TERRAFORM_REQUIRED_MD5:= 28a2c1582b9631a37a9bb6b2c849e13e
 endif
 
 default:
