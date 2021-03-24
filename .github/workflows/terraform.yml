@@ -1,0 +1,48 @@
+name: 'Terraform'
+
+on:
+  push:
+    branches:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_hostname: app.terraform.io
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_version: 0.14.3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Terraform Validate
+      id: validate
+      run: |
+        cd $PWS/terraform
+        terraform init
+        ENV=main make validate
+
+    - name: Terraform Plan
+      id: plan
+      run: |
+        cd $PWD/terraform
+        terraform init
+        ENV=main make plan
