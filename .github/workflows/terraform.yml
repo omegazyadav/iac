@@ -52,3 +52,11 @@ jobs:
         cd $PWD/terraform
         terraform init
         terraform apply --auto-approve
+
+    - name: Terraform Destroy
+      id: destroy
+      if: github.ref == 'refs/heads/main'
+      run: |
+        cd $PWD/terraform
+        terraform init
+        terraform destroy --auto-approve
