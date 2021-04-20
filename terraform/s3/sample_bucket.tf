@@ -1,4 +1,4 @@
-# S3 Bucket for Connection Service (Service Deployment)
+# S3 Bucket(Sample)
 resource "aws_s3_bucket" "sample_s3_bucket" {
   bucket = "sample-s3-${terraform.workspace}"
   acl    = "private"
